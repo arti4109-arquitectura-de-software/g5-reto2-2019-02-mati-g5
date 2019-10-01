@@ -1,0 +1,119 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<html>
+<body>
+
+    @Html.Label("lblfactura", "Factura")
+    @Html.TextBox("txtFactura", null, new { @class = "form-control" })
+
+    @Html.Label("lblfactura", "Producto")
+    @Html.TextBox("txtproducto", null, new { @class = "form-control" })
+
+    @Html.Label("lblfactura", "Cantidad")
+    @Html.TextBox("txtCantidad", null, new { @class = "form-control" })
+
+
+    @Html.Label("lblfactura", "Total")
+    @Html.TextBox("txttotal", null, new { @class = "form-control" })
+
+    <br />
+
+    <input type="button" value="Guardar" name="Guardar" onclick="save()" />
+    <input type="button" value="Guardar" name="Store" onclick="save()" />
+
+
+
+    <script>
+    var cambio = 1;
+           var Database_Name = "FriendsDB";
+            var DB_Version = "1";
+            var dbObj;
+            var request = indexedDB.open(Database_Name, DB_Version)
+    var productos = [];
+
+
+
+        request.onsuccess = function (e) {
+                document.getElementById("result").innerHTML = "Database Opened :)";
+                dbObj = request.result;
+            }
+        request.onerror = function (e) {
+            console.log("Error:" + e.target.errorCode)
+            document.getElementById("result").innerHTML = "Error! The Database connection not opened. Please See The Log";
+        }
+
+
+    
+    function save() {
+
+        cambio = cambio + 1;
+
+        var Database_Name = "FriendsDBsss";
+        var cambio = 1;
+                var DB_Version="2"+cambio;
+                var dbObj;
+        var request = indexedDB.open(Database_Name, DB_Version);
+
+         request.onsuccess = function (e) {
+                    document.getElementById("result").innerHTML = "Database Opened :)";
+                    dbObj = request.result;
+        }
+
+
+        request.onupgradeneeded = function (evt) {
+           // var objectStore = evt.currentTarget.transaction.objectStore("FriendsDBsss");
+                    //creating Object Store
+            var objectStore = evt.currentTarget.result.createObjectStore("MyObjectStore" +cambio, { keyPath: "id", autoIncrement: true });
+
+        objectStore.createIndex("IdFactura", "IdFactura", { unique: false });
+
+        // Store a new value in the objectStore. 
+        var req = objectStore.add(productos);
+        req.onsuccess = function (event) {
+            // Add succeeded
+
+            
+        };
+
+    };
+
+
+
+            var std = {};
+            std.Total = $("#txttotal").val();
+            std.Cantidad = $("#txtCantidad").val();
+            std.IdProducto = $("#txtproducto").val();
+            std.IdFactura = $("#txtFactura").val();
+
+        productos.push(std);
+
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Crear")',
+                data: '{fm: ' + JSON.stringify(std) + '}',
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    alert("Data has been added successfully.");
+                   // LoadData();
+                },
+                error: function () {
+                    //alert("Error while inserting data");
+                }
+            });
+
+        }
+
+    </script>
+    <P id="result"></P>
+
+
+</body>
+</html>   

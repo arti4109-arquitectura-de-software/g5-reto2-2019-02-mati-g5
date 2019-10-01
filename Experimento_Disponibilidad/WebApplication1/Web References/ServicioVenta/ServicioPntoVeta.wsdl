@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="HelloWorld">
+        <s:complexType />
+      </s:element>
+      <s:element name="HelloWorldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarProductoE">
+        <s:complexType />
+      </s:element>
+      <s:element name="ListarProductoEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarProductoEResult" type="tns:ArrayOfProductoModels" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfProductoModels">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ProductoModels" nillable="true" type="tns:ProductoModels" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProductoModels">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdProducto" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="NomProducto" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PrecioProducto" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="idPuntoventa" nillable="true" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListarPuntoVentaE">
+        <s:complexType />
+      </s:element>
+      <s:element name="ListarPuntoVentaEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarPuntoVentaEResult" type="tns:ArrayOfPuntoVentaModels" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPuntoVentaModels">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PuntoVentaModels" nillable="true" type="tns:PuntoVentaModels" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PuntoVentaModels">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdPunto" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombrePunto" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Factura">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="facturaEnt" type="tns:Factura" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Factura">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdFactura" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdProducto" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cantidad" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Total" nillable="true" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FacturaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FacturaResult" type="tns:Factura" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloWorldSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloWorld" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListarProductoESoapIn">
+    <wsdl:part name="parameters" element="tns:ListarProductoE" />
+  </wsdl:message>
+  <wsdl:message name="ListarProductoESoapOut">
+    <wsdl:part name="parameters" element="tns:ListarProductoEResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListarPuntoVentaESoapIn">
+    <wsdl:part name="parameters" element="tns:ListarPuntoVentaE" />
+  </wsdl:message>
+  <wsdl:message name="ListarPuntoVentaESoapOut">
+    <wsdl:part name="parameters" element="tns:ListarPuntoVentaEResponse" />
+  </wsdl:message>
+  <wsdl:message name="FacturaSoapIn">
+    <wsdl:part name="parameters" element="tns:Factura" />
+  </wsdl:message>
+  <wsdl:message name="FacturaSoapOut">
+    <wsdl:part name="parameters" element="tns:FacturaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServicioPntoVetaSoap">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldSoapIn" />
+      <wsdl:output message="tns:HelloWorldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarProductoE">
+      <wsdl:input message="tns:ListarProductoESoapIn" />
+      <wsdl:output message="tns:ListarProductoESoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarPuntoVentaE">
+      <wsdl:input message="tns:ListarPuntoVentaESoapIn" />
+      <wsdl:output message="tns:ListarPuntoVentaESoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Factura">
+      <wsdl:input message="tns:FacturaSoapIn" />
+      <wsdl:output message="tns:FacturaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServicioPntoVetaSoap" type="tns:ServicioPntoVetaSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarProductoE">
+      <soap:operation soapAction="http://tempuri.org/ListarProductoE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarPuntoVentaE">
+      <soap:operation soapAction="http://tempuri.org/ListarPuntoVentaE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Factura">
+      <soap:operation soapAction="http://tempuri.org/Factura" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServicioPntoVetaSoap12" type="tns:ServicioPntoVetaSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarProductoE">
+      <soap12:operation soapAction="http://tempuri.org/ListarProductoE" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarPuntoVentaE">
+      <soap12:operation soapAction="http://tempuri.org/ListarPuntoVentaE" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Factura">
+      <soap12:operation soapAction="http://tempuri.org/Factura" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServicioPntoVeta">
+    <wsdl:port name="ServicioPntoVetaSoap" binding="tns:ServicioPntoVetaSoap">
+      <soap:address location="https://localhost:44311/ServicioPntoVeta.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServicioPntoVetaSoap12" binding="tns:ServicioPntoVetaSoap12">
+      <soap12:address location="https://localhost:44311/ServicioPntoVeta.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

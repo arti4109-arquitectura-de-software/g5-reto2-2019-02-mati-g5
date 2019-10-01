@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBReto2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Factura">
+    <Key>
+      <PropertyRef Name="IdFactura" />
+    </Key>
+    <Property Name="IdFactura" Type="int" Nullable="false" />
+    <Property Name="IdProducto" Type="int" />
+    <Property Name="Cantidad" Type="int" />
+    <Property Name="Total" Type="int" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="IdProducto" />
+    </Key>
+    <Property Name="IdProducto" Type="int" Nullable="false" />
+    <Property Name="NomProducto" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PrecioProducto" Type="int" />
+    <Property Name="idPuntoventa" Type="int" />
+  </EntityType>
+  <EntityType Name="PuntoVenta">
+    <Key>
+      <PropertyRef Name="IdPunto" />
+    </Key>
+    <Property Name="IdPunto" Type="int" Nullable="false" />
+    <Property Name="NombrePunto" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Producto_Punto">
+    <End Role="PuntoVenta" Type="Self.PuntoVenta" Multiplicity="0..1" />
+    <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PuntoVenta">
+        <PropertyRef Name="IdPunto" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="idPuntoventa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DBReto2ModelStoreContainer">
+    <EntitySet Name="Factura" EntityType="Self.Factura" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PuntoVenta" EntityType="Self.PuntoVenta" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Producto_Punto" Association="Self.FK_Producto_Punto">
+      <End Role="PuntoVenta" EntitySet="PuntoVenta" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

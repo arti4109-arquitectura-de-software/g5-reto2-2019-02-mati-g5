@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBReto2ModelStoreContainer" CdmEntityContainer="DBReto2Entities1">
+    <EntitySetMapping Name="Factura">
+      <EntityTypeMapping TypeName="DBReto2Model.Factura">
+        <MappingFragment StoreEntitySet="Factura">
+          <ScalarProperty Name="IdFactura" ColumnName="IdFactura" />
+          <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Producto">
+      <EntityTypeMapping TypeName="DBReto2Model.Producto">
+        <MappingFragment StoreEntitySet="Producto">
+          <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+          <ScalarProperty Name="NomProducto" ColumnName="NomProducto" />
+          <ScalarProperty Name="PrecioProducto" ColumnName="PrecioProducto" />
+          <ScalarProperty Name="idPuntoventa" ColumnName="idPuntoventa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PuntoVenta">
+      <EntityTypeMapping TypeName="DBReto2Model.PuntoVenta">
+        <MappingFragment StoreEntitySet="PuntoVenta">
+          <ScalarProperty Name="IdPunto" ColumnName="IdPunto" />
+          <ScalarProperty Name="NombrePunto" ColumnName="NombrePunto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

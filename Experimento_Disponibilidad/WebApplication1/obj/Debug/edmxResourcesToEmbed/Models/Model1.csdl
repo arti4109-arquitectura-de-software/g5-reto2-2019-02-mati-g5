@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBReto2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Factura">
+    <Key>
+      <PropertyRef Name="IdFactura" />
+    </Key>
+    <Property Name="IdFactura" Type="Int32" Nullable="false" />
+    <Property Name="IdProducto" Type="Int32" />
+    <Property Name="Cantidad" Type="Int32" />
+    <Property Name="Total" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="IdProducto" />
+    </Key>
+    <Property Name="IdProducto" Type="Int32" Nullable="false" />
+    <Property Name="NomProducto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PrecioProducto" Type="Int32" />
+    <Property Name="idPuntoventa" Type="Int32" />
+    <NavigationProperty Name="PuntoVenta" Relationship="Self.FK_Producto_Punto" FromRole="Producto" ToRole="PuntoVenta" />
+  </EntityType>
+  <EntityType Name="PuntoVenta">
+    <Key>
+      <PropertyRef Name="IdPunto" />
+    </Key>
+    <Property Name="IdPunto" Type="Int32" Nullable="false" />
+    <Property Name="NombrePunto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Producto" Relationship="Self.FK_Producto_Punto" FromRole="PuntoVenta" ToRole="Producto" />
+  </EntityType>
+  <Association Name="FK_Producto_Punto">
+    <End Role="PuntoVenta" Type="Self.PuntoVenta" Multiplicity="0..1" />
+    <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PuntoVenta">
+        <PropertyRef Name="IdPunto" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="idPuntoventa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DBReto2Entities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Factura" EntityType="Self.Factura" />
+    <EntitySet Name="Producto" EntityType="Self.Producto" />
+    <EntitySet Name="PuntoVenta" EntityType="Self.PuntoVenta" />
+    <AssociationSet Name="FK_Producto_Punto" Association="Self.FK_Producto_Punto">
+      <End Role="PuntoVenta" EntitySet="PuntoVenta" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
